@@ -7,32 +7,11 @@
    stroke-linecap="square"
    stroke-miterlimit="10"
    id="svg49"
-   sodipodi:docname="link-types-capabilities.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs53" />
-  <sodipodi:namedview
-     id="namedview51"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     showgrid="false"
-     inkscape:zoom="1.9983629"
-     inkscape:cx="120.34851"
-     inkscape:cy="157.12862"
-     inkscape:window-width="1828"
-     inkscape:window-height="802"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg49" />
+
   <clipPath
      id="p.0">
     <path
@@ -166,7 +145,6 @@
      x="120.57142"
      y="142.60855"
      id="text15358"><tspan
-       sodipodi:role="line"
        x="120.57142"
        y="142.60855"
        id="tspan62517">Handle HTTP / HTTPS schemes</tspan></text>
