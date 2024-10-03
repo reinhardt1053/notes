@@ -2,7 +2,7 @@
 <!DOCTYPE instance-profile
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
-<instance-profile id="h"
+<instance-profile id="mf"
                  name="Massimo Fazzolari's Notes"
                  start-page="app_universal_links.md">
 

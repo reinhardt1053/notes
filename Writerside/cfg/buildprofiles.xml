@@ -6,7 +6,7 @@
     <variables>
         <primary-color>forest</primary-color>
     </variables>
-    <build-profile instance="h">
+    <build-profile instance="mf">
         <variables>
             <noindex-content>true</noindex-content>
         </variables>
