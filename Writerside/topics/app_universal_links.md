@@ -34,17 +34,21 @@ A **Deep Link** is called a **Web Link** if it uses http or https as the scheme.
 https://myazur.app/link?action_id=1&status_id=2
 </code-block>
 
-A Web Link becomes an **App Link** if it uses as host a verified domain. We will see later that it is 
-necessary to prove to Google that we own the domain we use as the host in our App Links.
+A Web Link becomes an **App Link** if it uses as host a verified domain. You will see later that it is 
+necessary to prove to Google that you own the domain you use as the host in our App Links (auto-verification process).
 
-The advantage of App Links is that they take the user directly into our application. On the other hand, 
-in the case of a Deep Link or Web Link, Android displays a dialog where the user can choose which application
-should open the link. Since the browser can open any Web Link, it will always be presented as an option, 
-introducing an additional step that worsens the user experience.
+### Why should I use an App Link instead of a Web Link?
 
-<note>
+When the user clicks on an Android App Link, your app opens immediately if it's installed and the disambiguation dialog does not appear.
+for simple web links Android will always show the disambiguation dialog. Since the browser can open any Web Link, 
+it will always be presented as an option, introducing an additional step that worsens the user experience.
+So if you own the domain you should always use app links instead of web links. 
+
+<img src="app-disambiguation_2x.png" alt="The disambiguation dialog" width="200"/>
+
+<tip>
 Android App Links are available on Android 6.0 (API level 23) and higher.
-</note>
+</tip>
 
 ### Create an Android App Link
 
@@ -73,10 +77,7 @@ Please note the attribute ``android:exported="true"`` which indicates that the a
 accessed by other apps on the device (Whatsapp, SMS, Browser, etc.)
 
 The most important attribute above is ``android:autoVerify="true"``. This attribute allows your app to designate 
-itself as the default handler of a given type of link. So when the user clicks on an Android App Link,
-your app opens immediately if it's installed—the disambiguation dialog does not appear.
-
-<img src="app-disambiguation_2x.png" alt="The disambiguation dialog" width="200"/>
+itself as the default handler of a given type of link. 
 
 ### Verify your domain
 On Android Studio you can navigate to the menu Tools->App Links Assistant
@@ -100,7 +101,7 @@ https://myazur.app/.well-known/assetlinks.json
         "namespace": "android_app",
         "package_name": "lu.sitasoftware.myazur",
         "sha256_cert_fingerprints":
-        ["09:91:83:AC:C7:E5:A0:E2:BB:2D:C2:5B:5F:52:AB:D0:3F:1D:91:42:63:1E:78:18:2B:8E:60:5A:43:97:D0:C3"]
+        ["09:91:83:AC:C7:E5:A0:E2:BB:2D:C2:5B:5F:52:AB:D0:3F:..."]
     }
 }]
 </code-block>
@@ -132,3 +133,55 @@ adb shell am start -a android.intent.action.VIEW \
     -d "https://myazur.app/link/?action_id=1&status_id=2"
 </code-block>
 
+<code-block lang="bash">
+adb shell pm get-app-links --user cur lu.sitasoftware.myazur
+</code-block>
+
+Run the following command to query the verification state of the domain:
+
+<code-block lang="bash">
+adb shell pm get-app-links --user cur lu.sitasoftware.myazur
+</code-block>
+
+<code-block lang="bash">
+lu.sitasoftware.myazur:
+ID: 674bf8f9-ec26-4090-8cee-d4cefb9a7fe4
+Signatures: [09:91:83:AC:C7:E5:A0:E2:BB:2D:C2:5B:5F:52:AB:...]
+Domain verification state:
+    myazur.app: verified
+    User 0:
+        Verification link handling allowed: true
+        Selection state:
+            Disabled:
+                myazur.app
+</code-block>
+
+Domains that pass the verification process will have a status of ``verified``
+
+If the domain has any other status, it means the verification could not be completed.
+Specifically, if the status is ``none`` it suggests that the verification process may still be ongoing and 
+hasn't finished yet, you may need to wait about 20 seconds to get a verification result.
+
+<warning>
+Please note that the domain myazur.app is listed as Disabled. Odd enough that's the expected state for a verified domain. 
+Android lists a domain as `Enabled` only when the domain is not verified (auto-verification failed) and the user has manually 
+allowed the app to open links. I find it misleading the way my domain is reported as Disabled but apparently the selection 
+state makes sense only for domains for which the auto-verification has failed. 
+</warning>
+
+
+### Incorrect assetlinks.json Signature
+
+Double-check that your signature in assetlinks.json is accurate and matches the one used to sign your app. 
+
+Common errors include:
+
+- Signing the app with a debug certificate but having only the release signature in assetlinks.json.
+- Using a lowercase signature, when it should be uppercase.
+- If you're using Play App Signing, ensure you're using the correct signature that Google uses to sign your releases. 
+Follow the instructions for declaring website associations for detailed steps, including an example JSON snippet.
+
+
+## References
+- <a href="https://developer.android.com/training/app-links">Official Android Documentation: Handling Android App Links</a>
+- <a href="https://zarah.dev/2022/02/08/android12-deeplinks.html">Zarah Dominguez - Debugging App Links in Android 12</a>
