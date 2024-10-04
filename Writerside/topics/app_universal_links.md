@@ -1,4 +1,4 @@
-# App Links and Universal Links
+# Deep linking in Android and iOs
 
 During the development of My Azur, an application for Android and iOS, I implemented deep linking using 
  **App Links** in Android and **Universal Links** in iOS.
