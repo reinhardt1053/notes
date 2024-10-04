@@ -1,7 +1,7 @@
 # App Links and Universal Links
 
-During the development of My Azur, an application for Android and iOS, I implemented what are called **App Links** in 
-Android and **Universal Links** in iOS.
+During the development of My Azur, an application for Android and iOS, I implemented deep linking using 
+ **App Links** in Android and **Universal Links** in iOS.
 
 The user receives a link via SMS/WhatsApp with the following format:
 
@@ -9,10 +9,9 @@ The user receives a link via SMS/WhatsApp with the following format:
 https://myazur.app/link/?action_id=1&status_id=2
 </code-block>
 
-Following a link with such format will take the user directly to the app instead of 
-opening the default internet browser. The app opens immediately if it's installed
-and I can handle the open link event by parsing the URL query args and bring the user
-to a specific screen of the app. 
+Clicking a link in this format will take the user directly to the app, bypassing the default browser. 
+If the app is installed, it opens immediately, allowing me to handle the link by parsing the URL's 
+query parameters and navigating the user to a specific screen within the app.
 
 ## Android App Links
 
